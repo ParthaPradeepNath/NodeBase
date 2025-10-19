@@ -5,11 +5,18 @@ import { requireAuth } from "@/lib/auth-utils";
 import { useTRPC } from "@/trpc/client";
 import { caller } from "@/trpc/server";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const Page = async () => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { data } = useQuery(trpc.getWorkflows.queryOptions());
+
+  const testAi = useMutation(trpc.testAi.mutationOptions({
+    onSuccess: () => {
+      toast.success("AI Test successful");
+    }
+  }))
 
   const create = useMutation(trpc.createWorkflow.mutationOptions({
     onSuccess: () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { formatDistanceToNow } from "date-fns"
+import { formatDistanceToNow } from "date-fns";
 import {
   EmptyView,
   EntityContainer,
@@ -122,7 +122,7 @@ export const WorkflowsError = () => {
 };
 
 export const WorkflowsEmpty = () => {
-  const router = useRouter()
+  const router = useRouter();
   const createWorkflow = useCreateWorkflow();
   const { handleError, modal } = useUpgradeModal();
 
@@ -148,33 +148,31 @@ export const WorkflowsEmpty = () => {
   );
 };
 
-export const WorkflowItem = ({
-  data,
-}: {data: Workflow}) => {
-  const removeWorkflow = useRemoveWorkflow()
+export const WorkflowItem = ({ data }: { data: Workflow }) => {
+  const removeWorkflow = useRemoveWorkflow();
 
   const handleRemove = () => {
-    removeWorkflow.mutate({ id: data.id})
-  }
-  
+    removeWorkflow.mutate({ id: data.id });
+  };
+
   return (
     <EntityItem
-    href={`/workflows/${data.id}`}
-    title={data.name}
-    subtitle={
-      <>
-        Updated {formatDistanceToNow(data.updatedAt, { addSuffix: true })}{" "}
-        &bull; Created{" "}
-        {formatDistanceToNow(data.createdAt, { addSuffix: true })}
-      </>
-    }
-    image={
-      <div className="size-8 flex items-center justify-center">
-        <WorkflowIcon className="size-5 text-muted-foreground" />
-      </div>
-    }
-    onRemove={handleRemove}
-    isRemoving={removeWorkflow.isPending}
+      href={`/workflows/${data.id}`}
+      title={data.name}
+      subtitle={
+        <>
+          Updated {formatDistanceToNow(data.updatedAt, { addSuffix: true })}{" "}
+          &bull; Created{" "}
+          {formatDistanceToNow(data.createdAt, { addSuffix: true })}
+        </>
+      }
+      image={
+        <div className="size-8 flex items-center justify-center">
+          <WorkflowIcon className="size-5 text-muted-foreground" />
+        </div>
+      }
+      onRemove={handleRemove}
+      isRemoving={removeWorkflow.isPending}
     />
-  )
-}
+  );
+};

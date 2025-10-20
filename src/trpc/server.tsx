@@ -22,6 +22,7 @@ export function prefetch<T extends ReturnType<TRPCQueryOptions<any>>>(
 ) {
   const queryClient = getQueryClient();
   if (queryOptions.queryKey[1]?.type === 'infinite') {
+    // awaiting prefetch will do absolutely nothing useful (because it is always void). So, don't need to do const workflows = await prefetch(...)
     void queryClient.prefetchInfiniteQuery(queryOptions as any);
   } else {
     void queryClient.prefetchQuery(queryOptions);

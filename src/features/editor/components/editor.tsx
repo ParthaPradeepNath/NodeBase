@@ -1,28 +1,28 @@
 "use client";
 
 import "@xyflow/react/dist/style.css";
-import { useState, useCallback } from "react";
 import {
-  ReactFlow,
-  applyNodeChanges,
-  applyEdgeChanges,
   addEdge,
-  type Node,
-  type Edge,
-  type NodeChange,
-  type EdgeChange,
-  type Connection,
+  applyEdgeChanges,
+  applyNodeChanges,
   Background,
+  type Connection,
   Controls,
+  type Edge,
+  type EdgeChange,
   MiniMap,
+  type Node,
+  type NodeChange,
   Panel,
+  ReactFlow,
 } from "@xyflow/react";
-import { ErrorView, LoadingView } from "@/components/entity-components";
-import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
-import { nodeComponents } from "@/config/node-components";
-import { AddNodeButton } from "./add-node-button";
 import { useSetAtom } from "jotai";
+import { useCallback, useState } from "react";
+import { ErrorView, LoadingView } from "@/components/entity-components";
+import { nodeComponents } from "@/config/node-components";
+import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 import { editorAtom } from "../store/atoms";
+import { AddNodeButton } from "./add-node-button";
 
 export const EditorLoading = () => {
   return <LoadingView message="Loading editor..." />;
@@ -35,7 +35,7 @@ export const EditorError = () => {
 export const Editor = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
 
-  const setEditor = useSetAtom(editorAtom)
+  const setEditor = useSetAtom(editorAtom);
 
   const [nodes, setNodes] = useState<Node[]>(workflow.nodes);
   const [edges, setEdges] = useState<Edge[]>(workflow.edges);
@@ -43,17 +43,17 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
   const onNodesChange = useCallback(
     (changes: NodeChange[]) =>
       setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    []
+    [],
   );
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
-    []
+    [],
   );
   const onConnect = useCallback(
     (params: Connection) =>
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    []
+    [],
   );
 
   return (
@@ -67,7 +67,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         fitView
         onInit={setEditor}
         proOptions={{
-            hideAttribution: true
+          hideAttribution: true,
         }}
         nodeTypes={nodeComponents}
         snapGrid={[10, 10]}

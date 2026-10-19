@@ -1,9 +1,10 @@
-import { auth } from "@/lib/auth";
-import { polarClient } from "@/lib/polar";
+import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
 import { cache } from "react";
 import superjson from "superjson";
+import { auth } from "@/lib/auth";
+import { polarClient } from "@/lib/polar";
 
 export const createTRPCContext = cache(async () => {
   /**
@@ -41,13 +42,13 @@ export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
 });
 export const premiumProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
-    const customer = await polarClient.customers.getStateExternal({
-      externalId: ctx.auth.user.id,
-    });
+    const customer = await getStateExternalCustomers(polarClient)(
+      ctx.auth.user.id,
+    );
 
     if (
-      !customer.activeSubscriptions ||
-      customer.activeSubscriptions.length === 0
+      !customer.active_subscriptions ||
+      customer.active_subscriptions.length === 0
     ) {
       throw new TRPCError({
         code: "FORBIDDEN",
@@ -56,5 +57,5 @@ export const premiumProcedure = protectedProcedure.use(
     }
 
     return next({ ctx: { ...ctx, customer } });
-  }
+  },
 );

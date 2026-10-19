@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
-
 const loginSchema = z.object({
   email: z.email("please enter a valid email address"),
   password: z.string().min(1, "Password is required"),
@@ -46,18 +45,21 @@ export function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    await authClient.signIn.email({
-      email: values.email,
-      password: values.password,
-      callbackURL: "/"
-    }, {
-      onSuccess: () => {
-        router.push("/");
+    await authClient.signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+        callbackURL: "/",
       },
-      onError: (ctx) => {
-        toast.error(ctx.error.message);
-      }, 
-    })
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      },
+    );
   };
 
   const isPending = form.formState.isSubmitting;
@@ -80,7 +82,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
-                    <Image alt="Github" src="/logos/github.svg" width={20} height={20} />
+                    <Image
+                      alt="Github"
+                      src="/logos/github.svg"
+                      width={20}
+                      height={20}
+                    />
                     Continue with Github
                   </Button>
                   <Button
@@ -89,7 +96,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
-                    <Image alt="Google" src="/logos/google.svg" width={20} height={20} />
+                    <Image
+                      alt="Google"
+                      src="/logos/google.svg"
+                      width={20}
+                      height={20}
+                    />
                     Continue with Google
                   </Button>
                 </div>

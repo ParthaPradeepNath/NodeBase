@@ -10,20 +10,20 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
   SidebarFooter,
+  SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { authClient } from "@/lib/auth-client";
 import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
+import { authClient } from "@/lib/auth-client";
 
 const menuItems = [
   {

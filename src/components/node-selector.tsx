@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { NodeType } from "@/generated/prisma";
+import { NodeType } from "@/generated/prisma/enums";
 import { Separator } from "./ui/separator";
 
 export type NodeTypeOption = {
@@ -61,7 +61,7 @@ export function NodeSelector({
       if (selection.type === NodeType.MANUAL_TRIGGER) {
         const nodes = getNodes();
         const hasManualTrigger = nodes.some(
-          (node) => node.type === NodeType.MANUAL_TRIGGER
+          (node) => node.type === NodeType.MANUAL_TRIGGER,
         );
         if (hasManualTrigger) {
           toast.error("Only one manual trigger is allowed per workflow");
@@ -72,7 +72,7 @@ export function NodeSelector({
       // Checking if the initial Node is present or not
       setNodes((nodes) => {
         const hasInitialTrigger = nodes.some(
-          (node) => node.type === NodeType.INITIAL
+          (node) => node.type === NodeType.INITIAL,
         );
 
         const centerX = window.innerWidth / 2;
@@ -99,7 +99,7 @@ export function NodeSelector({
 
       onOpenChange(false);
     },
-    [setNodes, getNodes, onOpenChange, screenToFlowPosition]
+    [setNodes, getNodes, onOpenChange, screenToFlowPosition],
   );
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -116,13 +116,15 @@ export function NodeSelector({
             const Icon = nodeType.icon;
 
             return (
-              <div
+              <button
+                type="button"
                 key={nodeType.type}
                 className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
                 onClick={() => handleNodeSelect(nodeType)}
               >
                 <div className="flex items-center gap-6 w-full overflow-hidden">
                   {typeof Icon === "string" ? (
+                    // biome-ignore lint/performance/noImgElement: provider logos are static assets in /public
                     <img
                       src={Icon}
                       alt={nodeType.label}
@@ -140,7 +142,7 @@ export function NodeSelector({
                     </span>
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -150,13 +152,15 @@ export function NodeSelector({
             const Icon = nodeType.icon;
 
             return (
-              <div
+              <button
+                type="button"
                 key={nodeType.type}
                 className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
                 onClick={() => handleNodeSelect(nodeType)}
               >
                 <div className="flex items-center gap-6 w-full overflow-hidden">
                   {typeof Icon === "string" ? (
+                    // biome-ignore lint/performance/noImgElement: provider logos are static assets in /public
                     <img
                       src={Icon}
                       alt={nodeType.label}
@@ -174,7 +178,7 @@ export function NodeSelector({
                     </span>
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

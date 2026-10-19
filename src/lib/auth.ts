@@ -1,4 +1,4 @@
-import { checkout, polar, portal} from "@polar-sh/better-auth"
+import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/db";
@@ -22,13 +22,13 @@ export const auth = betterAuth({
             {
               productId: "38b3f7ca-4d07-465f-b249-1b72835bec9a",
               slug: "pro",
-            }
+            },
           ],
           successUrl: process.env.POLAR_SUCCESS_URL,
           authenticatedUsersOnly: true,
         }),
-        portal()
-      ]
-    })
-  ]
+        portal(),
+      ],
+    }),
+  ],
 });

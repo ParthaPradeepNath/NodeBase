@@ -7,9 +7,9 @@ const nextConfig: NextConfig = {
         source: "/",
         destination: "/workflows",
         permanent: false,
-      }
-    ]
-  }
+      },
+    ];
+  },
 };
 
 export default nextConfig;

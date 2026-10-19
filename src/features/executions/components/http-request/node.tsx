@@ -1,10 +1,10 @@
 "use client";
 
-import { useReactFlow, type Node, type NodeProps } from "@xyflow/react";
+import { type Node, type NodeProps, useReactFlow } from "@xyflow/react";
 import { GlobeIcon } from "lucide-react";
 import { memo, useState } from "react";
 import { BaseExecutionNode } from "@/features/executions/components/base-execution-node";
-import { FormType, HttpRequestDialog } from "./dialog";
+import { type FormType, HttpRequestDialog } from "./dialog";
 
 type HttpRequestNodeData = {
   endpoint?: string;
@@ -38,7 +38,7 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
           };
         }
         return node;
-      })
+      }),
     );
   };
 

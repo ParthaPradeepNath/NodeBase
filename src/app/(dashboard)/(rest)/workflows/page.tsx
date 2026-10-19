@@ -1,6 +1,8 @@
-import type { SearchParams } from "nuqs";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+
+import type { SearchParams } from "nuqs";
+
 import {
   WorkflowsContainer,
   WorkflowsError,

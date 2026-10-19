@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { formatDistanceToNow } from "date-fns";
 import { WorkflowIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+
 import {
   EmptyView,
   EntityContainer,
@@ -17,6 +19,7 @@ import {
 import type { Workflow } from "@/generated/prisma/client";
 import { useEntitySearch } from "@/hooks/use-entity-search";
 import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
+
 import {
   useCreateWorkflow,
   useRemoveWorkflow,
@@ -167,8 +170,8 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
         </>
       }
       image={
-        <div className="size-8 flex items-center justify-center">
-          <WorkflowIcon className="size-5 text-muted-foreground" />
+        <div className="flex size-8 items-center justify-center">
+          <WorkflowIcon className="text-muted-foreground size-5" />
         </div>
       }
       onRemove={handleRemove}

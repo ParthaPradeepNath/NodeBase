@@ -1,8 +1,11 @@
+import { cache } from "react";
+
+import { headers } from "next/headers";
+
 import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
 import { initTRPC, TRPCError } from "@trpc/server";
-import { headers } from "next/headers";
-import { cache } from "react";
 import superjson from "superjson";
+
 import { auth } from "@/lib/auth";
 import { polarClient } from "@/lib/polar";
 
@@ -43,7 +46,7 @@ export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
 export const premiumProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
     const customer = await getStateExternalCustomers(polarClient)(
-      ctx.auth.user.id,
+      ctx.auth.user.id
     );
 
     if (
@@ -57,5 +60,5 @@ export const premiumProcedure = protectedProcedure.use(
     }
 
     return next({ ctx: { ...ctx, customer } });
-  },
+  }
 );

@@ -1,6 +1,9 @@
-import { CheckCircle2Icon, Loader2Icon, XCircleIcon } from "lucide-react";
 import { forwardRef, type HTMLAttributes } from "react";
+
+import { CheckCircle2Icon, Loader2Icon, XCircleIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+
 import type { NodeStatus } from "./node-status-indicator";
 
 interface BaseNodeProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,24 +15,24 @@ export const BaseNode = forwardRef<HTMLDivElement, BaseNodeProps>(
     <div
       ref={ref}
       className={cn(
-        "relative rounded-sm border-muted-foreground border bg-card text-card-foreground hover:bg-accent",
-        className,
+        "border-muted-foreground bg-card text-card-foreground hover:bg-accent relative rounded-sm border",
+        className
       )}
       tabIndex={0}
       {...props}
     >
       {props.children}
       {status === "error" && (
-        <XCircleIcon className="absolute right-0.5 bottom-0.5 size-2 text-red-700 stroke-3" />
+        <XCircleIcon className="absolute right-0.5 bottom-0.5 size-2 stroke-3 text-red-700" />
       )}
       {status === "success" && (
-        <CheckCircle2Icon className="absolute right-0.5 bottom-0.5 size-2 text-green-700 stroke-3" />
+        <CheckCircle2Icon className="absolute right-0.5 bottom-0.5 size-2 stroke-3 text-green-700" />
       )}
       {status === "loading" && (
-        <Loader2Icon className="absolute -right-0.5 -bottom-0.5 size-2 text-blue-700 stroke-3 animate-spin" />
+        <Loader2Icon className="absolute -right-0.5 -bottom-0.5 size-2 animate-spin stroke-3 text-blue-700" />
       )}
     </div>
-  ),
+  )
 );
 BaseNode.displayName = "BaseNode";
 
@@ -48,7 +51,7 @@ export const BaseNodeHeader = forwardRef<
       "mx-0 my-0 -mb-1 flex flex-row items-center justify-between gap-2 px-3 py-2",
       // Remove or modify these classes if you modify the padding in the
       // `<BaseNode />` component.
-      className,
+      className
     )}
   />
 ));
@@ -92,8 +95,8 @@ export const BaseNodeFooter = forwardRef<
     ref={ref}
     data-slot="base-node-footer"
     className={cn(
-      "flex flex-col items-center gap-y-2 border-t px-3 pb-3 pt-2",
-      className,
+      "flex flex-col items-center gap-y-2 border-t px-3 pt-2 pb-3",
+      className
     )}
     {...props}
   />

@@ -1,5 +1,6 @@
-import { Handle, type HandleProps } from "@xyflow/react";
 import { forwardRef } from "react";
+
+import { Handle, type HandleProps } from "@xyflow/react";
 
 import { cn } from "@/lib/utils";
 
@@ -12,15 +13,15 @@ export const BaseHandle = forwardRef<HTMLDivElement, BaseHandleProps>(
         ref={ref}
         {...props}
         className={cn(
-          "h-[11px] w-[11px] rounded-full border border-slate-300 bg-slate-100 transition dark:border-secondary dark:bg-secondary",
-          className,
+          "dark:border-secondary dark:bg-secondary h-[11px] w-[11px] rounded-full border border-slate-300 bg-slate-100 transition",
+          className
         )}
         {...props}
       >
         {children}
       </Handle>
     );
-  },
+  }
 );
 
 BaseHandle.displayName = "BaseHandle";

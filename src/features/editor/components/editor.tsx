@@ -1,6 +1,7 @@
 "use client";
 
-import "@xyflow/react/dist/style.css";
+import { useCallback, useState } from "react";
+
 import {
   addEdge,
   applyEdgeChanges,
@@ -16,11 +17,13 @@ import {
   Panel,
   ReactFlow,
 } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 import { useSetAtom } from "jotai";
-import { useCallback, useState } from "react";
+
 import { ErrorView, LoadingView } from "@/components/entity-components";
 import { nodeComponents } from "@/config/node-components";
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
+
 import { editorAtom } from "../store/atoms";
 import { AddNodeButton } from "./add-node-button";
 
@@ -43,17 +46,17 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
   const onNodesChange = useCallback(
     (changes: NodeChange[]) =>
       setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    [],
+    []
   );
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
-    [],
+    []
   );
   const onConnect = useCallback(
     (params: Connection) =>
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    [],
+    []
   );
 
   return (

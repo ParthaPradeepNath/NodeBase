@@ -1,6 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 import { generateSlug } from "random-word-slugs";
 import z from "zod";
+
 import { PAGINATION } from "@/config/constants";
 import { NodeType } from "@/generated/prisma/enums";
 import prisma from "@/lib/db";
@@ -47,7 +48,7 @@ export const workflowsRouter = createTRPCRouter({
             type: z.string().nullish(),
             position: z.object({ x: z.number(), y: z.number() }),
             data: z.record(z.string(), z.any()).optional(),
-          }),
+          })
         ),
         edges: z.array(
           z.object({
@@ -55,9 +56,9 @@ export const workflowsRouter = createTRPCRouter({
             target: z.string(),
             sourceHandle: z.string().nullish(),
             targetHandle: z.string().nullish(),
-          }),
+          })
         ),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const { id, nodes, edges } = input;
@@ -166,7 +167,7 @@ export const workflowsRouter = createTRPCRouter({
           .max(PAGINATION.MAX_PAGE_SIZE)
           .default(PAGINATION.DEFAULT_PAGE_SIZE),
         search: z.string().default(""),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, search } = input;

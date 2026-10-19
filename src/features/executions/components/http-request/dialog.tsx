@@ -1,9 +1,11 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -97,7 +99,7 @@ export const HttpRequestDialog = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-8 mt-4"
+            className="mt-4 space-y-8"
           >
             <FormField
               control={form.control}

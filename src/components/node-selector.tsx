@@ -1,10 +1,12 @@
 "use client";
 
+import { useCallback } from "react";
+
 import { createId } from "@paralleldrive/cuid2";
 import { useReactFlow } from "@xyflow/react";
 import { GlobeIcon, MousePointerIcon } from "lucide-react";
-import { useCallback } from "react";
 import { toast } from "sonner";
+
 import {
   Sheet,
   SheetContent,
@@ -14,6 +16,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NodeType } from "@/generated/prisma/enums";
+
 import { Separator } from "./ui/separator";
 
 export type NodeTypeOption = {
@@ -61,7 +64,7 @@ export function NodeSelector({
       if (selection.type === NodeType.MANUAL_TRIGGER) {
         const nodes = getNodes();
         const hasManualTrigger = nodes.some(
-          (node) => node.type === NodeType.MANUAL_TRIGGER,
+          (node) => node.type === NodeType.MANUAL_TRIGGER
         );
         if (hasManualTrigger) {
           toast.error("Only one manual trigger is allowed per workflow");
@@ -72,7 +75,7 @@ export function NodeSelector({
       // Checking if the initial Node is present or not
       setNodes((nodes) => {
         const hasInitialTrigger = nodes.some(
-          (node) => node.type === NodeType.INITIAL,
+          (node) => node.type === NodeType.INITIAL
         );
 
         const centerX = window.innerWidth / 2;
@@ -99,12 +102,12 @@ export function NodeSelector({
 
       onOpenChange(false);
     },
-    [setNodes, getNodes, onOpenChange, screenToFlowPosition],
+    [setNodes, getNodes, onOpenChange, screenToFlowPosition]
   );
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+      <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-md">
         <SheetHeader>
           <SheetTitle>What triggers this workflow ?</SheetTitle>
           <SheetDescription>
@@ -119,25 +122,25 @@ export function NodeSelector({
               <button
                 type="button"
                 key={nodeType.type}
-                className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
+                className="hover:border-l-primary h-auto w-full cursor-pointer justify-start rounded-none border-l-2 border-transparent px-4 py-5"
                 onClick={() => handleNodeSelect(nodeType)}
               >
-                <div className="flex items-center gap-6 w-full overflow-hidden">
+                <div className="flex w-full items-center gap-6 overflow-hidden">
                   {typeof Icon === "string" ? (
                     // biome-ignore lint/performance/noImgElement: provider logos are static assets in /public
                     <img
                       src={Icon}
                       alt={nodeType.label}
-                      className="size-5 object-contain rounded-sm"
+                      className="size-5 rounded-sm object-contain"
                     />
                   ) : (
                     <Icon className="size-5" />
                   )}
                   <div className="flex flex-col items-start text-left">
-                    <span className="font-medium text-sm">
+                    <span className="text-sm font-medium">
                       {nodeType.label}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       {nodeType.description}
                     </span>
                   </div>
@@ -155,25 +158,25 @@ export function NodeSelector({
               <button
                 type="button"
                 key={nodeType.type}
-                className="w-full justify-start h-auto py-5 px-4 rounded-none cursor-pointer border-l-2 border-transparent hover:border-l-primary"
+                className="hover:border-l-primary h-auto w-full cursor-pointer justify-start rounded-none border-l-2 border-transparent px-4 py-5"
                 onClick={() => handleNodeSelect(nodeType)}
               >
-                <div className="flex items-center gap-6 w-full overflow-hidden">
+                <div className="flex w-full items-center gap-6 overflow-hidden">
                   {typeof Icon === "string" ? (
                     // biome-ignore lint/performance/noImgElement: provider logos are static assets in /public
                     <img
                       src={Icon}
                       alt={nodeType.label}
-                      className="size-5 object-contain rounded-sm"
+                      className="size-5 rounded-sm object-contain"
                     />
                   ) : (
                     <Icon className="size-5" />
                   )}
                   <div className="flex flex-col items-start text-left">
-                    <span className="font-medium text-sm">
+                    <span className="text-sm font-medium">
                       {nodeType.label}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       {nodeType.description}
                     </span>
                   </div>

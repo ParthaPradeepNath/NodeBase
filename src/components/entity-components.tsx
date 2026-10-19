@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   AlertTriangleIcon,
   Loader2Icon,
@@ -7,8 +9,9 @@ import {
   SearchIcon,
   TrashIcon,
 } from "lucide-react";
-import Link from "next/link";
+
 import { cn } from "@/lib/utils";
+
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import {
@@ -51,9 +54,9 @@ export const EntityHeader = ({
   return (
     <div className="flex flex-row items-center justify-between gap-x-4">
       <div className="flex flex-col">
-        <h1 className="text-lg md:text-xl font-semibold">{title}</h1>
+        <h1 className="text-lg font-semibold md:text-xl">{title}</h1>
         {description && (
-          <p className="text-sm md:text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm md:text-sm">
             {description}
           </p>
         )}
@@ -90,10 +93,10 @@ export const EntityContainer = ({
   pagination,
 }: EntityContainerProps) => {
   return (
-    <div className="p-4 md:px-10 md:py-6 h-full">
-      <div className="mx-auto max-w-screen-xl w-full flex flex-col gap-y-8 h-full">
+    <div className="h-full p-4 md:px-10 md:py-6">
+      <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-y-8">
         {header}
-        <div className="flex flex-col gap-y-4 h-full">
+        <div className="flex h-full flex-col gap-y-4">
           {search}
           {children}
         </div>
@@ -116,9 +119,9 @@ export const EntitySearch = ({
 }: EntitySearchProps) => {
   return (
     <div className="relative ml-auto">
-      <SearchIcon className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+      <SearchIcon className="text-muted-foreground absolute top-1/2 left-3 size-3.5 -translate-y-1/2" />
       <Input
-        className="max-w-[200px] bg-background shadow-none border-border pl-8"
+        className="bg-background border-border max-w-[200px] pl-8 shadow-none"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -141,8 +144,8 @@ export const EntityPagination = ({
   disabled,
 }: EntityPaginationProps) => {
   return (
-    <div className="flex items-center justify-between gap-x-2 w-full">
-      <div className="flex-1 text-sm text-muted-foreground">
+    <div className="flex w-full items-center justify-between gap-x-2">
+      <div className="text-muted-foreground flex-1 text-sm">
         Page {page} of {totalPages || 1}
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
@@ -173,18 +176,18 @@ interface StateViewProps {
 
 export const LoadingView = ({ message }: StateViewProps) => {
   return (
-    <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
-      <Loader2Icon className="size-6 animate-spin text-primary" />
-      {!!message && <p className="text-sm text-muted-foreground">{message}</p>}
+    <div className="flex h-full flex-1 flex-col items-center justify-center gap-y-4">
+      <Loader2Icon className="text-primary size-6 animate-spin" />
+      {!!message && <p className="text-muted-foreground text-sm">{message}</p>}
     </div>
   );
 };
 
 export const ErrorView = ({ message }: StateViewProps) => {
   return (
-    <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
-      <AlertTriangleIcon className="size-6 text-primary" />
-      {!!message && <p className="text-sm text-muted-foreground">{message}</p>}
+    <div className="flex h-full flex-1 flex-col items-center justify-center gap-y-4">
+      <AlertTriangleIcon className="text-primary size-6" />
+      {!!message && <p className="text-muted-foreground text-sm">{message}</p>}
     </div>
   );
 };
@@ -229,8 +232,8 @@ export function EntityList<T>({
 }: EntityListProps<T>) {
   if (items.length === 0 && emptyView) {
     return (
-      <div className="flex-1 flex justify-center items-center">
-        <div className="max-w-sm mx-auto">{emptyView}</div>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="mx-auto max-w-sm">{emptyView}</div>
       </div>
     );
   }
@@ -284,9 +287,9 @@ export const EntityItem = ({
     <Link href={href} prefetch>
       <Card
         className={cn(
-          "p-4 shadow-none hover:shadow cursor-pointer",
-          isRemoving && "opacity-50 cursor-not-allowed",
-          className,
+          "cursor-pointer p-4 shadow-none hover:shadow",
+          isRemoving && "cursor-not-allowed opacity-50",
+          className
         )}
       >
         <CardContent className="flex flex-row items-center justify-between p-0">
@@ -302,7 +305,7 @@ export const EntityItem = ({
             </div>
           </div>
           {(actions || onRemove) && (
-            <div className="flex gap-x-4 items-center">
+            <div className="flex items-center gap-x-4">
               {actions}
               {onRemove && (
                 <DropdownMenu>

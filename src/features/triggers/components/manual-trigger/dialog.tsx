@@ -24,7 +24,7 @@ export const ManualTriggerDialog = ({ open, onOpenChange }: Props) => {
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Used to manually execute a workflow, no configuration available.
           </p>
         </div>

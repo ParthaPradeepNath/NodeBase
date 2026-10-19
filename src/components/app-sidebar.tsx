@@ -1,5 +1,9 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+
 import {
   CreditCardIcon,
   FolderOpenIcon,
@@ -8,9 +12,7 @@ import {
   LogOutIcon,
   StarIcon,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+
 import {
   Sidebar,
   SidebarContent,
@@ -57,7 +59,7 @@ export const AppSidebar = () => {
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild className="gap-x-4 h-10 px-4">
+          <SidebarMenuButton asChild className="h-10 gap-x-4 px-4">
             <Link href="/" prefetch>
               <Image
                 src="/logos/logo.svg"
@@ -65,7 +67,7 @@ export const AppSidebar = () => {
                 width={30}
                 height={30}
               />
-              <span className="font-semibold text-sm">Nodebase</span>
+              <span className="text-sm font-semibold">Nodebase</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -86,7 +88,7 @@ export const AppSidebar = () => {
                           : pathname.startsWith(item.url)
                       }
                       asChild
-                      className="gap-x-4 h-10 px-4"
+                      className="h-10 gap-x-4 px-4"
                     >
                       <Link href={item.url} prefetch>
                         <item.icon className="size-4" />
@@ -106,7 +108,7 @@ export const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
-                className="gap-x-4 h-10 px-4"
+                className="h-10 gap-x-4 px-4"
                 onClick={() => authClient.checkout({ slug: "pro" })}
               >
                 <StarIcon className="h-4 w-4" />
@@ -117,7 +119,7 @@ export const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Billing Portal"
-              className="gap-x-4 h-10 px-4"
+              className="h-10 gap-x-4 px-4"
               onClick={() => authClient.customer.portal()}
             >
               <CreditCardIcon className="h-4 w-4" />
@@ -127,7 +129,7 @@ export const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Sign out"
-              className="gap-x-4 h-10 px-4"
+              className="h-10 gap-x-4 px-4"
               onClick={() =>
                 authClient.signOut({
                   fetchOptions: {

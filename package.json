@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
+    "format:prettier": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,mdx,css}\"",
+    "format:prettier:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,mdx,css}\"",
     "inngest:dev": "inngest-cli dev",
     "dev:all": "mprocs"
   },
@@ -87,11 +89,14 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
     "@tailwindcss/postcss": "^4.3.3",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "inngest-cli": "^1.46.0",
     "mprocs": "^0.9.6",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "prisma": "^7.10.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

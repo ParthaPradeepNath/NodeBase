@@ -1,13 +1,12 @@
 "use client";
 
-import { memo, useState } from "react";
-
 import { type Node, type NodeProps, useReactFlow } from "@xyflow/react";
 import { GlobeIcon } from "lucide-react";
+import { memo, useState } from "react";
 
 import { BaseExecutionNode } from "@/features/executions/components/base-execution-node";
 
-import { type HttpRequestFormValues, HttpRequestDialog } from "./dialog";
+import { HttpRequestDialog, type HttpRequestFormValues } from "./dialog";
 
 type HttpRequestNodeData = {
   endpoint?: string;
@@ -33,12 +32,12 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
             ...node,
             data: {
               ...node.data,
-              ...values
+              ...values,
             },
           };
         }
         return node;
-      })
+      }),
     );
   };
 

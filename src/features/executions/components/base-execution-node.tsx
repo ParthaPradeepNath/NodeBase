@@ -1,11 +1,9 @@
 "use client";
 
-import { memo, type ReactNode } from "react";
-
-import Image from "next/image";
-
 import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
 import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
+import { memo, type ReactNode } from "react";
 
 import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
 import {
@@ -48,7 +46,7 @@ export const BaseExecutionNode = memo(
 
       setEdges((currentEdges) => {
         const updatedEdges = currentEdges.filter(
-          (edge) => edge.source !== id && edge.target !== id
+          (edge) => edge.source !== id && edge.target !== id,
         );
         return updatedEdges;
       });
@@ -84,7 +82,7 @@ export const BaseExecutionNode = memo(
         </NodeStatusIndicator>
       </WorkflowNode>
     );
-  }
+  },
 );
 
 BaseExecutionNode.displayName = "BaseExecutionNode";

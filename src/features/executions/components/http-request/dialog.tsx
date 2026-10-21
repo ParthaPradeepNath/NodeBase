@@ -1,9 +1,8 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -46,14 +45,14 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
-  defaultValues?: Partial<HttpRequestFormValues>
+  defaultValues?: Partial<HttpRequestFormValues>;
 }
 
 export const HttpRequestDialog = ({
   open,
   onOpenChange,
   onSubmit,
-  defaultValues = {}
+  defaultValues = {},
 }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

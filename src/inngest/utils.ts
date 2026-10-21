@@ -1,9 +1,10 @@
 import toposort from "toposort";
+
 import type { Connection, Node } from "@/generated/prisma/client";
 
 export const topologicalSort = (
   nodes: Node[],
-  connections: Connection[],
+  connections: Connection[]
 ): Node[] => {
   // If no connections, return node as-is (they're all independent)
   if (connections.length === 0) {

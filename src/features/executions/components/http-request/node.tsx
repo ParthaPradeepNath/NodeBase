@@ -1,8 +1,9 @@
 "use client";
 
+import { memo, useState } from "react";
+
 import { type Node, type NodeProps, useReactFlow } from "@xyflow/react";
 import { GlobeIcon } from "lucide-react";
-import { memo, useState } from "react";
 
 import { BaseExecutionNode } from "@/features/executions/components/base-execution-node";
 
@@ -37,7 +38,7 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
           };
         }
         return node;
-      }),
+      })
     );
   };
 

@@ -4,32 +4,32 @@ import z from "zod";
 
 import { PAGINATION } from "@/config/constants";
 import { NodeType } from "@/generated/prisma/enums";
+import { inngest } from "@/inngest/client";
 import prisma from "@/lib/db";
 import {
   createTRPCRouter,
   premiumProcedure,
   protectedProcedure,
 } from "@/trpc/init";
-import { inngest } from "@/inngest/client";
 
 export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .mutation(async ({ input, ctx}) => {
+    .mutation(async ({ input, ctx }) => {
       const workflow = await prisma.workflow.findUniqueOrThrow({
         where: {
           id: input.id,
-          userId: ctx.auth.user.id
-        }
-      })
+          userId: ctx.auth.user.id,
+        },
+      });
 
       // super simple execute procedure which just called a background job
       await inngest.send({
         name: "workflows/execute.workflow",
-        data: { workflowId: input.id }
-      })
+        data: { workflowId: input.id },
+      });
 
-      return workflow
+      return workflow;
     }),
   create: premiumProcedure.mutation(({ ctx }) => {
     return prisma.workflow.create({

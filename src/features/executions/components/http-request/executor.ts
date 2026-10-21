@@ -1,5 +1,6 @@
 import { NonRetriableError } from "inngest";
 import ky, { type Options as KyOptions } from "ky";
+
 import type { NodeExecutor } from "@/features/executions/types";
 
 type HttpRequestData = {

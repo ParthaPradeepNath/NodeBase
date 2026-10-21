@@ -23,10 +23,10 @@ import { useSetAtom } from "jotai";
 import { ErrorView, LoadingView } from "@/components/entity-components";
 import { nodeComponents } from "@/config/node-components";
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
+import { NodeType } from "@/generated/prisma/enums";
 
 import { editorAtom } from "../store/atoms";
 import { AddNodeButton } from "./add-node-button";
-import { NodeType } from "@/generated/prisma/enums";
 import { ExecuteWorkflowButton } from "./execute-workflow-button";
 
 export const EditorLoading = () => {
@@ -62,9 +62,9 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
   );
 
   // useMemo -> so that doesn't render too often
-  const  hasManualTrigger = useMemo(() => {
-    return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER)
-  }, [nodes])
+  const hasManualTrigger = useMemo(() => {
+    return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
+  }, [nodes]);
 
   return (
     <div className="size-full">
@@ -95,7 +95,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         {hasManualTrigger && (
           <Panel position="bottom-center">
             <ExecuteWorkflowButton workflowId={workflowId} />
-        </Panel>
+          </Panel>
         )}
       </ReactFlow>
     </div>

@@ -118,8 +118,6 @@ export const useUpdateWorkflow = () => {
   );
 };
 
-
-
 /**
  * Hook to execute a workflow
  */

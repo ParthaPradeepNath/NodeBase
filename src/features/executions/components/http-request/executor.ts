@@ -4,6 +4,7 @@ import ky, { type Options as KyOptions } from "ky";
 import type { NodeExecutor } from "@/features/executions/types";
 
 type HttpRequestData = {
+  variableName?: string;
   endpoint?: string;
   method?: string;
   body?: string;
@@ -19,6 +20,10 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     throw new NonRetriableError("HTTP Request node: No endpoint configured");
   }
 
+  if (!data.variableName) {
+    throw new NonRetriableError("Variable name not configured");
+  }
+
   // Captured after the guard so it stays narrowed to `string` inside the closure
   const endpoint = data.endpoint;
 
@@ -30,7 +35,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     if (["POST", "PUT", "PATCH"].includes(method)) {
       options.body = data.body;
       options.headers = {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // so that our req doesnt get rejected
       };
     }
 
@@ -40,13 +45,25 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       ? await response.json()
       : await response.text();
 
-    return {
-      ...context,
+    const responsePayload = {
       httpResponse: {
         status: response.status,
         statusText: response.statusText,
         data: responseData,
       },
+    };
+
+    if (data.variableName) {
+      return {
+        ...context,
+        [data.variableName]: responsePayload,
+      };
+    }
+
+    // Fallback to direct httpResponse for backward compatibility
+    return {
+      ...context,
+      ...responsePayload,
     };
   });
 

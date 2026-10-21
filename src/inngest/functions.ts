@@ -37,9 +37,21 @@ export const executeWorkflow = inngest.createFunction(
 
     // Execute each node
     for (const node of sortedNodes) {
+      // const executor = getExecutor(node.type as NodeType);
+
+      if (!Object.values(NodeType).includes(node.type as NodeType)) {
+        throw new NonRetriableError(`Invalid node  type: ${node.type}`);
+      }
+
       const executor = getExecutor(node.type as NodeType);
+
+      if (typeof node.data !== "object" || node.data === null) {
+        throw new NonRetriableError(`Invalid node data for node ${node.id}`);
+      }
+
       context = await executor({
-        data: node.data as Record<string, unknown>,
+        // data: node.data as Record<string, unknown>,
+        data: node.data as Record<string, unknown>, // Safe after validation
         nodeId: node.id,
         context,
         step,
